@@ -1,79 +1,286 @@
-Remote Droid
+# Remote-Droid
 
-Remote Droid is an Android remote-control system that allows an Android phone to be viewed and controlled from a laptop browser.
+<p align="center">
+  <strong>Control Your Android Device Directly From Your Browser</strong>
+</p>
 
-The project is divided into two parts:
+<p align="center">
+  Real-time screen streaming • Remote touch control • WebRTC • Accessibility Service
+</p>
+
+<p align="center">
+
+![Android](https://img.shields.io/badge/Android-7.0%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-2.x-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)
+![WebRTC](https://img.shields.io/badge/WebRTC-Live%20Streaming-333333?style=for-the-badge)
+![React](https://img.shields.io/badge/React-TypeScript-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-Server-339933?style=for-the-badge&logo=node.js&logoColor=white)
+
+</p>
+
+---
+
+## Overview
+
+**Remote-Droid** is a browser-based Android remote-control system that allows an Android phone to be viewed and controlled directly from a laptop.
+
+The Android device streams its screen to the browser using **WebRTC**, providing a real-time live preview instead of repeatedly sending JPEG screenshots.
+
+The laptop browser acts as the remote control interface, allowing the user to interact with the actual Android device.
+
+```text
+┌──────────────────────┐
+│      Laptop          │
+│                      │
+│   Web Browser        │
+│   React + WebRTC     │
+└──────────┬───────────┘
+           │
+           │ WebSocket
+           │ Signaling
+           │
+           ▼
+┌──────────────────────┐
+│    Node.js Server    │
+│                      │
+│ Pairing              │
+│ Authentication       │
+│ Signaling            │
+│ Session Management   │
+└──────────┬───────────┘
+           │
+           │ WebRTC
+           │
+           ▼
+┌──────────────────────┐
+│    Android Phone     │
+│                      │
+│ MediaProjection      │
+│ AccessibilityService │
+│ WebRTC                │
+│ Remote Control       │
+└──────────────────────┘
+Features
+Live Android Screen
+
+View the actual Android screen directly inside the laptop browser.
+
+Real-time video streaming
+WebRTC-based transmission
+Low-latency preview
+Portrait and landscape support
+No JPEG screenshot polling
+Remote Touch Control
+
+Interact with the Android screen using the laptop mouse.
+
+Supported interactions include:
+
+Laptop Interaction	Android Action
+Click	Tap
+Double Click	Double Tap
+Hold	Long Press
+Drag	Drag
+Mouse Wheel	Scroll
+Mouse Movement	Touch Coordinate Mapping
+Android Navigation
+
+Control the primary Android navigation actions:
+
+Back
+Home
+Recent Apps
+Keyboard Control
+
+Use the laptop keyboard to interact with supported Android text fields.
+
+For example:
+
+Laptop Keyboard
+       │
+       ▼
+Browser
+       │
+       ▼
+Remote-Droid
+       │
+       ▼
+Android Text Field
+Application Control
+
+Remote-Droid is designed to interact with applications installed on the Android phone.
+
+Examples:
+
+YouTube
+Chrome
+Facebook
+Instagram
+Messaging applications
+Gallery
+Settings
+Other installed applications
+
+Example:
+
+Open YouTube
+      ↓
+Select Video
+      ↓
+Scroll
+      ↓
+Search
+      ↓
+Type
+      ↓
+Navigate
+
+All actions occur on the actual Android device.
+
+Architecture
+
+Remote-Droid consists of three major components.
+
+                    REMOTE-DROID
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+          ▼              ▼              ▼
+      Android         Node.js        Browser
+       Agent          Server          Client
+          │              │              │
+          │              │              │
+          └──────────────┼──────────────┘
+                         │
+                    WebRTC + WS
+1. Android Application
+
+Directory:
+
+remote-droid/
+
+The Android application runs on the phone.
+
+Responsibilities:
+
+Screen capture
+WebRTC streaming
+Touch interaction
+Gesture handling
+Accessibility interaction
+Keyboard/text input
+Android navigation
+Pairing
+Authentication
+Remote session management
+Foreground service
+Technologies
+Kotlin
+Android SDK
+MediaProjection
+AccessibilityService
+WebRTC
+WebSocket
+Foreground Service
+2. Node.js Server
+
+Directory:
 
 remote-droid-project/
-├── remote-droid/          # Android APK
-└── web-based-system/      # Laptop browser control system
-Project Structure
-1. remote-droid
 
-Android application installed on the phone.
+The server handles:
 
-Main responsibilities:
-
-Live Android screen capture using MediaProjection
-Real-time screen streaming using WebRTC
-Remote touch interaction using AccessibilityService
-Tap, double-tap, long press and drag
-Swipe and scrolling
-Keyboard/text input
-Back, Home and Recent Apps
-Application interaction
-Device pairing
-Remote session management
 WebSocket communication
-Foreground service for remote operation
-APK Location
+Pairing
+Authentication
+WebRTC signaling
+Session management
+Connection handling
+Reconnection
 
-After building the Android project, the APK is generated at:
+The server does not store Android screen recordings.
 
-remote-droid/android/app/build/outputs/apk/debug/app-debug.apk
+3. Browser Client
 
-To build the APK:
+The browser client provides the remote-control interface.
 
-cd remote-droid/android
-.\gradlew.bat assembleDebug
+Responsibilities:
 
-The generated APK can then be transferred directly to an Android phone and installed.
-
-2. remote-droid-project
-
-This is the web-based laptop control system.
-
-It provides the browser interface used to:
-
-View the Android screen live
-Click/tap the phone screen
-Double-click
-Long press
-Drag
-Swipe
-Scroll
-Type using the laptop keyboard
-Use Back, Home and Recent Apps
-Interact with installed Android applications
-Maintain the remote session
-
-The browser receives the phone's screen through WebRTC, rather than JPEG screenshots.
-
+Display live Android video
+Send touch commands
+Send gestures
+Send keyboard input
+Send navigation commands
+Display connection status
+Handle pairing
+Manage remote sessions
+Technologies
+React
+TypeScript
+WebRTC
+WebSocket
+Tailwind CSS
+Project Structure
+Remote-Droid/
+│
+├── remote-droid/
+│   │
+│   └── android/
+│       ├── app/
+│       │   ├── src/
+│       │   └── build.gradle.kts
+│       │
+│       ├── build.gradle.kts
+│       ├── settings.gradle.kts
+│       ├── gradlew
+│       ├── gradlew.bat
+│       └── ...
+│
+├── remote-droid-project/
+│   │
+│   ├── src/
+│   ├── package.json
+│   └── ...
+│
+└── README.md
 Requirements
 Laptop
-Windows/macOS/Linux
+Windows, macOS or Linux
 Node.js
 npm
-Modern browser such as Chrome, Edge or Firefox
-Laptop and phone connected to the same network for local testing
-Android Phone
-Android 7.0+ / API 24+
-Remote Droid APK installed
-Internet/Wi-Fi or local network connection as required by the server configuration
-Accessibility permission enabled
-Screen-capture permission granted when requested
-Android Setup
-1. Install the APK
+Modern browser
+Network connection
+
+Recommended browsers:
+
+Google Chrome
+Microsoft Edge
+Firefox
+Android
+Android 7.0 or newer
+Remote-Droid APK
+Network connection
+Accessibility Service enabled
+Screen capture permission enabled
+Android Installation
+1. Build the APK
+
+Navigate to:
+
+remote-droid/android
+
+Set the Java environment if required:
+
+$env:JAVA_HOME="C:\Program Files\Java\jdk-20"
+
+Build:
+
+.\gradlew.bat assembleDebug
+
+The APK will be generated at:
+
+remote-droid/android/app/build/outputs/apk/debug/app-debug.apk
+2. Install the APK
 
 Transfer:
 
@@ -83,96 +290,103 @@ to the Android phone.
 
 Open the APK and install it.
 
-If Android blocks the installation, allow installation of apps from the source you used to open the APK.
+If Android blocks the installation, enable installation from unknown sources for the application being used to open the APK.
 
-2. Open Remote Droid
+Android Permissions
 
-Launch:
+Remote-Droid requires several Android capabilities to provide remote control.
 
-Remote Droid
+Accessibility Service
 
-The application will request the permissions required for remote control.
+Accessibility Service is required for remote interaction with the Android UI.
 
-Grant the required permissions.
-
-Accessibility Setup
-
-Remote Droid uses Android's AccessibilityService for remote interaction with the phone.
-
-Go to:
+Open:
 
 Settings
 → Accessibility
-→ Installed apps
+→ Installed Apps
 
-Depending on the Android manufacturer, it may instead appear under:
+On some devices:
 
 Settings
 → Accessibility
-→ Downloaded apps
+→ Downloaded Apps
 
 Find:
 
-Remote Droid
+Remote-Droid
 
-Enable the Accessibility Service.
+Enable the service.
 
-Confirm the Android warning when prompted.
+Confirm the Android system warning.
 
-This permission is required for remote actions such as:
-
-Tapping
-Swiping
-Scrolling
-Long pressing
+Required for
+Tap
+Swipe
+Scroll
+Long press
+Drag
 Gestures
 Back
 Home
 Recent Apps
-Interacting with accessible UI elements
+Accessible UI interaction
 
-Without Accessibility permission, the browser may be able to receive the screen but remote interaction will not work correctly.
+Without Accessibility Service enabled, screen streaming may work but remote interaction will not function correctly.
 
 Screen Capture Permission
 
-Remote Droid uses Android's MediaProjection API to capture the device display.
+Remote-Droid uses Android's MediaProjection API for screen capture.
 
-When Remote Droid requests screen-sharing/screen-capture permission:
+When the Android system displays the screen-capture permission dialog:
 
-Review the Android system prompt.
-Select the option to allow screen capture.
-Confirm the permission.
+Review the permission.
+Allow screen capture.
+Return to Remote-Droid.
 
-This permission is required for the browser to receive the live Android screen.
+The Android display can then be streamed to the browser through WebRTC.
 
-The screen is streamed as a real-time WebRTC video stream.
+Network Setup
 
-Remote Droid does not use periodic JPEG screenshots for the live preview.
-
-Connect the Phone and Laptop
-
-For local testing, connect both devices to the same Wi-Fi network.
+For local testing, connect the laptop and Android phone to the same Wi-Fi network.
 
 Example:
 
-Laptop
-192.168.1.10
+                Wi-Fi Router
+                     │
+          ┌──────────┴──────────┐
+          │                     │
+          ▼                     ▼
+       Laptop                 Phone
+     192.168.1.10           192.168.1.25
 
-        │
-        │ Wi-Fi
-        │
-        ▼
+The actual IP addresses depend on the network.
 
-Phone
+Find Android IP Address
+
+On the Android phone:
+
+Settings
+→ Wi-Fi
+→ Connected Network
+→ Network Details
+→ IP Address
+
+Example:
+
 192.168.1.25
 
-The exact IP addresses will be different on each network.
+Do not use:
 
-You can find the phone's local IP under its connected Wi-Fi network details.
+127.0.0.1
+
+when connecting from the laptop.
+
+127.0.0.1 refers to the local device itself.
 
 Start the Web System
 
-Open a terminal in:
+Open PowerShell or a terminal in:
 
 remote-droid-project/
 
@@ -184,165 +398,325 @@ Start the development server:
 
 npm run dev
 
-If the project contains a separate server and browser application, start each according to its respective package configuration.
-
-Open the displayed local URL in the laptop browser.
+The terminal will display the local web address.
 
 For example:
 
 http://localhost:5173
 
-The exact port depends on the project configuration.
+Open the displayed address in the laptop browser.
 
-Pair the Phone
-Open Remote Droid on the Android phone.
-Start the remote session/pairing process.
-Obtain the pairing code shown by the phone.
-Open the Remote Droid web interface on the laptop.
-Enter the pairing code.
-Connect to the phone.
+Pairing
+Step 1
 
-After successful authentication:
+Open:
 
-Android Phone
-      ↓
-MediaProjection
-      ↓
-WebRTC
-      ↓
-Laptop Browser
+Remote-Droid
 
-The phone's actual screen should appear live in the browser.
+on the Android phone.
 
-Remote Control
+Step 2
 
-Once connected, the browser can be used as the phone's remote interface.
+Start the pairing or remote session.
 
-Mouse
-Left click       → Tap
-Double click     → Double tap
-Hold             → Long press
-Drag             → Drag
-Mouse wheel      → Scroll
-Keyboard
+Step 3
 
-Laptop keyboard input can be sent to the Android device when a compatible text field is focused.
+Get the pairing code displayed by the Android application.
 
 Example:
 
-Laptop keyboard
+8F42-K92A
+Step 4
+
+Open the Remote-Droid web interface on the laptop.
+
+Step 5
+
+Enter the pairing code.
+
+Step 6
+
+Connect to the phone.
+
+After successful authentication, the Android screen should appear in the browser.
+
+Remote Control
+
+Once connected, the browser becomes the remote interface.
+
+Mouse Controls
+Click
+   ↓
+Android Tap
+Double Click
+   ↓
+Android Double Tap
+Hold
+   ↓
+Android Long Press
+Drag
+   ↓
+Android Drag
+Mouse Wheel
+   ↓
+Android Scroll
+Keyboard Controls
+
+When a supported Android text field is focused:
+
+Laptop Keyboard
        ↓
 Browser
        ↓
-Remote Droid
+Remote-Droid
        ↓
-Android text field
-Navigation
+Android
 
-Use:
+This allows text to be entered using the laptop keyboard.
 
-Back
-Home
-Recent Apps
+Android Navigation
 
-to navigate the Android device.
+The browser interface provides:
 
-Using Android Applications
+┌────────┬────────┬────────┐
+│  Back  │  Home  │ Recent │
+└────────┴────────┴────────┘
 
-After the connection is established, the phone can be operated through the browser.
+These commands are sent to the Android device through the remote session.
 
-For example:
+Live Streaming
 
-Home
- ↓
-Open YouTube
- ↓
-Click a video
- ↓
-Scroll
- ↓
-Search
- ↓
-Type using laptop keyboard
+Remote-Droid uses:
 
-The browser displays the actual Android screen while the commands are executed on the physical Android device.
+Android Display
+      ↓
+MediaProjection
+      ↓
+WebRTC Video
+      ↓
+Laptop Browser
 
-The same principle applies to other installed applications such as:
+The system does not rely on:
 
-Chrome
-YouTube
-Facebook
-Instagram
-Messaging applications
-Gallery
-Settings
-Other installed applications
+Android
+   ↓
+JPEG Screenshot
+   ↓
+Upload
+   ↓
+Browser
+
+Instead, the Android display is continuously streamed as a live WebRTC video track.
+
+Security
+
+Remote-Droid provides direct control over an Android device.
+
+Because of this, authentication and session security are important.
+
+The system should use:
+
+Pairing authentication
+Session authentication
+WebSocket authentication
+WebRTC encryption
+Secure session termination
+Network access controls
+
+Do not expose an unauthenticated remote-control service directly to the public internet.
+
+Only connect devices that you own or are explicitly authorised to control.
+
 Troubleshooting
-Screen is not visible
+Android screen is not visible
 
 Check:
 
-MediaProjection/screen-capture permission
-Android Remote Droid app is running
+MediaProjection permission
+Remote-Droid is running
+Network connection
+WebSocket connection
 WebRTC connection
-Network connectivity
+Server status
 Browser connection status
-Screen is visible but cannot click
+Screen is visible but touch does not work
 
 Check:
 
 Settings
 → Accessibility
-→ Remote Droid
+→ Installed Apps
+→ Remote-Droid
 → Enabled
 
-Restart Remote Droid after enabling Accessibility if necessary.
+Restart Remote-Droid after enabling the Accessibility Service.
 
 Phone cannot connect
 
-Check that:
+Check:
 
-Phone and laptop are on the same network for local testing
-The configured server/signaling address is correct
-Required server is running
-Windows Firewall is not blocking the required port
+Phone and laptop are on the same network
+Server is running
+Signaling address is correct
+IP address is correct
+Required port is available
+Firewall is not blocking the connection
 Keyboard does not work
 
-Make sure:
+Check:
 
 A compatible text field is focused
-Remote Droid's required permissions are enabled
-The browser has an active remote session
-Build APK From Source
+Remote session is active
+Accessibility Service is enabled
+Android permissions are granted
+Android Build
 
-From the Android project directory:
+The Android application can be built without Android Studio using the Gradle wrapper.
 
-cd remote-droid/android
+From:
 
-Set Java if required for the current PowerShell session:
+remote-droid/android
+
+run:
 
 $env:JAVA_HOME="C:\Program Files\Java\jdk-20"
 
-Build:
+Then:
 
 .\gradlew.bat assembleDebug
 
-APK:
+The generated APK:
 
-remote-droid/android/app/build/outputs/apk/debug/app-debug.apk
-Security
+app/build/outputs/apk/debug/app-debug.apk
+Development
+Compile Kotlin
+.\gradlew.bat compileDebugKotlin
+Build Debug APK
+.\gradlew.bat assembleDebug
+Clean Build
+.\gradlew.bat clean
 
-Remote Droid provides control over the Android device, so the remote connection must be protected.
+Then:
 
-Do not expose an unauthenticated remote-control endpoint to the public internet.
+.\gradlew.bat assembleDebug
+Technology Stack
+Android
+Technology	Purpose
+Kotlin	Android application
+Android SDK	Android platform
+MediaProjection	Screen capture
+AccessibilityService	Remote interaction
+WebRTC	Live screen streaming
+WebSocket	Control/signaling
+Foreground Service	Persistent remote session
+Web
+Technology	Purpose
+React	User interface
+TypeScript	Application logic
+WebRTC	Live video
+WebSocket	Communication
+Tailwind CSS	UI styling
+Node.js	Backend/server
+System Flow
+                    ┌───────────────────┐
+                    │   Android Phone   │
+                    │                   │
+                    │  MediaProjection  │
+                    │        │          │
+                    │        ▼          │
+                    │      WebRTC       │
+                    │        │          │
+                    └────────┼──────────┘
+                             │
+                             │ Live Video
+                             ▼
+                    ┌───────────────────┐
+                    │   Laptop Browser  │
+                    │                   │
+                    │    Live Screen    │
+                    │        │          │
+                    │        ▼          │
+                    │ Mouse / Keyboard  │
+                    └────────┬──────────┘
+                             │
+                             │ Commands
+                             ▼
+                    ┌───────────────────┐
+                    │    Node.js        │
+                    │     Server        │
+                    │                   │
+                    │ WebSocket         │
+                    │ Signaling         │
+                    │ Authentication    │
+                    └───────────────────┘
+Remote Interaction Flow
+Laptop Mouse
+     │
+     ▼
+Browser
+     │
+     ▼
+WebSocket
+     │
+     ▼
+Android AccessibilityService
+     │
+     ▼
+Android UI
 
-Use:
+Screen feedback:
 
-Pairing authentication
-Secure session handling
-WebSocket authentication
-WebRTC encryption
-Session termination
-Network access controls
+Android UI
+     │
+     ▼
+MediaProjection
+     │
+     ▼
+WebRTC
+     │
+     ▼
+Browser
 
-The user should always know when remote control is active.
+This creates a continuous control loop:
+
+        ┌──────────────────────────┐
+        │                          │
+        ▼                          │
+    Android Screen                 │
+        │                          │
+        ▼                          │
+      WebRTC                       │
+        │                          │
+        ▼                          │
+      Browser                      │
+        │                          │
+        ▼                          │
+   Mouse / Keyboard                │
+        │                          │
+        ▼                          │
+    WebSocket                      │
+        │                          │
+        ▼                          │
+     Android                       │
+        │                          │
+        └──────────────────────────┘
+Current Scope
+
+Remote-Droid is designed around the following core capabilities:
+
+Real Android screen preview
+Real-time WebRTC streaming
+Remote touch interaction
+Gesture control
+Scrolling
+Keyboard input
+Android navigation
+Application interaction
+Pairing
+Authentication
+Browser-based control
+Disclaimer
+
+Remote-Droid should only be used on Android devices that you own or have explicit permission to control.
+
+The project is intended for legitimate remote-device management, development, testing and authorised automation.
