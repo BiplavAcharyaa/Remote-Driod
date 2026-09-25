@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Remote Droid</string>
+    <string name="accessibility_service_label">Remote Droid Control Service</string>
+    <string name="accessibility_service_description">Allows Remote Droid to perform taps, swipes, gestures and text entry received from a paired browser session. No data is collected or transmitted except direct control commands you have authorized.</string>
+
+    <string name="notification_channel_name">Remote Session</string>
+    <string name="notification_channel_desc">Shows the status of the active remote control session</string>
+    <string name="notification_title_active">Remote Droid session active</string>
+    <string name="notification_text_streaming">Screen is being shared with a paired browser</string>
+    <string name="notification_text_waiting">Waiting for browser to connect</string>
+    <string name="notification_action_stop">Stop Session</string>
+
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_waiting_pair">Waiting for pairing</string>
+    <string name="status_connected_server">Connected to server</string>
+    <string name="status_streaming">Streaming — browser connected</string>
+    <string name="status_reconnecting">Reconnecting…</string>
+    <string name="status_error">Error</string>
+
+    <string name="btn_start_session">Start Remote Session</string>
+    <string name="btn_stop_session">Stop Session</string>
+    <string name="btn_enable_accessibility">Enable Accessibility Service</string>
+    <string name="btn_regenerate_code">Regenerate Pairing Code</string>
+    <string name="btn_settings">Server Settings</string>
+
+    <string name="label_pairing_code">Pairing code</string>
+    <string name="label_server_url">Signaling server URL</string>
+    <string name="label_device_id">Device ID</string>
+
+    <string name="accessibility_warning">Accessibility Service is not enabled. Remote touch and gesture control will not work until it is turned on for Remote Droid.</string>
+    <string name="projection_warning">Screen capture permission has not been granted yet. Start a session to be prompted.</string>
+</resources>

@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/controlbar.tsx","./src/components/pairingscreen.tsx","./src/components/remotescreen.tsx","./src/components/statusbar.tsx","./src/hooks/usewebrtc.ts","./src/hooks/usewebsocket.ts","./src/types/index.ts","./src/utils/coordinatemapping.ts"],"version":"5.9.3"}

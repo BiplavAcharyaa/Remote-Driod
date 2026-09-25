@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1565C0</color>
+    <color name="primary_dark">#0D47A1</color>
+    <color name="accent">#00C853</color>
+    <color name="background">#0E1116</color>
+    <color name="surface">#1A1F27</color>
+    <color name="on_surface">#E6E9EF</color>
+    <color name="muted">#8A93A3</color>
+    <color name="status_green">#00C853</color>
+    <color name="status_amber">#FFAB00</color>
+    <color name="status_red">#D50000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

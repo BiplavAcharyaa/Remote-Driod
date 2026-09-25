@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-graphite-950 text-graphite-100 antialiased;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: rgba(61, 220, 132, 0.3);
+  }
+}
+
+@layer components {
+  .input-field {
+    @apply rounded-lg border border-graphite-700 bg-graphite-850 px-3.5 py-2.5 text-sm text-white outline-none transition placeholder:text-graphite-600 focus:border-signal focus:ring-2 focus:ring-signal/30;
+  }
+}
